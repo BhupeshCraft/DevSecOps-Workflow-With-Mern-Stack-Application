@@ -107,9 +107,9 @@ helm lint ./mern-app > <a href="helmlinter-report.txt"> helmlinter-report.txt </
 
 <br>
 
-<a href="helmlinter-report.txt"> • Found Error </a> <br>
+<b> • Found Error At hemlinter.report.txt </b> <br>
 
-` Soln : `
+<b> Here Is The Soln : </b> <br>
 
 ```
 Create file " mern-app.fullname.tpl " --> Paste : {{ .Release.Name }}-{{ .Chart.Name }}
@@ -118,3 +118,72 @@ Replace With " mern-app.fullname.tpl " At The Place Of " mern-app.fullname "in <
 
 <br>
 
+<h3 align="center"> 4) Set Up AKS (Azure Kubernetes Service) , Flux CD : </h3>
+
+<br> 
+
+<h4 align=center"> Set Up Your AKS Cluster </h4>
+
+<br>
+
+### Log in to your Azure account 
+
+` az login ` 
+
+<br>
+
+### Create a Resource Group
+
+` az group create --name myResourceGroup --location eastus ` 
+
+<br>
+
+###Create an AKS Cluster
+
+``` az aks create \
+    --resource-group myResourceGroup \
+    --name myAKSCluster \
+    --node-count 3 \
+    --enable-addons monitoring \
+    --generate-ssh-keys
+    ``` 
+    <br>
+
+### Get AKS Credentials
+` az aks get-credentials --resource-group myResourceGroup --name myAKSCluster `
+
+<br>
+
+### Verify AKS Cluster
+
+` kubectl get nodes ` 
+
+<br>
+
+<h4 align=center"> Install Flux CD </h4>
+
+<br>
+
+### Install Flux CLI
+
+` brew install fluxcd/tap/flux `
+
+<br>
+
+### 
+
+``` flux bootstrap github \
+  --token-auth \
+  --owner=BhupeshCraft \
+  --repository=DevSecOps-Workflow-With-Mern-Stack-Application \
+  --branch=main \
+  --path=clusters/my-cluster \
+  --personal
+```
+<br>
+
+### Verify Installation
+
+` kubectl get pods -n flux-system `
+
+<br>
