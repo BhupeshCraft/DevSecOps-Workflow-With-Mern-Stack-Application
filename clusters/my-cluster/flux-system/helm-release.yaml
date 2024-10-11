@@ -1,0 +1,34 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: mern-app
+  namespace: default
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: ./charts/mern-app
+      sourceRef:
+        kind: GitRepository
+        name: flux-system
+        namespace: flux-system
+  values:
+    replicaCount: 1
+    image:
+      repository: iambhupesh/mern-backend
+      tag: latest
+    frontendImage:
+      repository: iambhupesh/mern-frontend
+      tag: latest
+    mongodbImage:
+      repository: mongo
+      tag: latest
+    service:
+      type: ClusterIP
+      port: 5050
+    frontendService:
+      type: ClusterIP
+      port: 5173
+    mongodbService:
+      type: ClusterIP
+      port: 27017
