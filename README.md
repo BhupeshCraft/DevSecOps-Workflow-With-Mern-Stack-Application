@@ -28,8 +28,8 @@
 
 ### Check Out Following Docker Images :-
 
-<a href="mern/frontend/Dockerfile">frontend</a>
-<a href="mern/backend/Dockerfile">backend</a>
+<a href="mern/frontend/Dockerfile">• frontend</a> <br>
+<a href="mern/backend/Dockerfile">• backend</a> <br>
 
 ### Create a network for the docker containers
 
@@ -70,3 +70,23 @@ docker build -t mern-backend .
 `docker compose up -d`
 
 <br>
+
+<h3 align="center"> 2) Packaging With Helm : </h3>
+
+<br>
+
+###  Create a Helm Chart ###
+
+` Create a Helm Chart `
+
+### Edit Following Files Of Helm :- ###
+
+<br>
+
+<a href="mern-app/Chart.yaml">• chart.yaml</a> <br>
+<a href="mern-app/values.yaml">• values.yaml</a> <br>
+<a href="mern-app/templates/deployment.yaml">• templates/deployment.yaml</a> <br>
+<a href="mern-app/templates/service.yaml">• templates/service.yaml</a> <br>
+
+<br>
+
