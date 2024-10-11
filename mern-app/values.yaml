@@ -1,0 +1,33 @@
+replicaCount: 1
+
+image:
+  repository: iambhupesh/mern-backend
+  tag: latest
+  pullPolicy: IfNotPresent
+
+frontendImage:
+  repository: iambhupesh/mern-frontend
+  tag: latest
+  pullPolicy: IfNotPresent
+
+mongodbImage:
+  repository: mongo
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 5050
+
+frontendService:
+  type: ClusterIP
+  port: 5173
+
+mongodbService:
+  type: ClusterIP
+  port: 27017
+
+resources: {}
+nodeSelector: {}
+tolerations: []
+affinity: {}
