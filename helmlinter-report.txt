@@ -1,0 +1,4 @@
+==> Linting ./mern-app
+[INFO] Chart.yaml: icon is recommended
+[ERROR] templates/: template: mern-app/templates/tests/test-connection.yaml:4:12: executing "mern-app/templates/tests/test-connection.yaml" at <include "mern-app.fullname" .>: error calling include: template: no template "mern-app.fullname" associated with template "gotpl"
+
