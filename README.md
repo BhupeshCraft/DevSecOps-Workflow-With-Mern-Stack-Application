@@ -88,5 +88,26 @@ docker build -t mern-backend .
 <a href="mern-app/templates/deployment.yaml">• templates/deployment.yaml</a> <br>
 <a href="mern-app/templates/service.yaml">• templates/service.yaml</a> <br>
 
+<h3 align="center"> 3) Scan the Helm Chart with Trivy & Kubelinter : </h3>
+
+<br>
+
+### Run Trivy to scan your Helm chart and save the output ###
+` trivy fs --severity HIGH,CRITICAL ./mern-app > trivy-report.txt `
+
+<br>
+
+<a href="trivy-report.txt">• Scanned With Trivy But Did Not Find Any vulnerability</a> <br>
+
+### Lint the Helm Chart with KubeLinter ###
+
+` helm lint ./mern-app > <a href="helmlinter-report.txt">helmlinter-report.txt </a> <br>
+
+` • <a href="helmlinter-report.txt"> Found Error </a> <br>` <br>
+``` Soln :
+Create file " mern-app.fullname.tpl " --> Paste : {{ .Release.Name }}-{{ .Chart.Name }}
+Replace With " mern-app.fullname.tpl " At The Place Of " mern-app.fullname "in <a href="mern-app/templates/tests/test-connection.yaml">test-connection.yaml</a>
+```
+
 <br>
 

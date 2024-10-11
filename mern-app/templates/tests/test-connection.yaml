@@ -11,5 +11,5 @@ spec:
     - name: wget
       image: busybox
       command: ['wget']
-      args: ['{{ include "mern-app.fullname" . }}:{{ .Values.service.port }}']
+      args: ['{{ include "mern-app.fullname.tpl" . }}:{{ .Values.service.port }}']
   restartPolicy: Never
