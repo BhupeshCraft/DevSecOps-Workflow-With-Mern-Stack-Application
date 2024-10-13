@@ -22,64 +22,64 @@
 
 <br>
 
-<h3 align="center"> 1) Build & Compose Mern Application With Docker : </h3>
+<h3 align="center"> 1) Build & Compose Mern Application With Docker :- </h3>
 
 <br>
 
-### Check Out Following Docker Images :-
+### Check Out Following Docker Images :
 
 <a href="mern/frontend/Dockerfile">• frontend</a> <br>
 <a href="mern/backend/Dockerfile">• backend</a> <br>
 
-### Create a network for the docker containers
+### Create a network for the docker containers 
 
 `docker network create demo`
 
-### Build the client 
+### Build the client :
 
 ```sh
 cd mern/frontend
 docker build -t mern-frontend .
 ```
 
-### Run the client
+### Run the client :
 
 `docker run --name=frontend --network=demo -d -p 5173:5173 mern-frontend`
 
-### Verify the client is running
+### Verify the client is running :
 
 Open your browser and type `http://localhost:5173`
 
-### Run the mongodb container
+### Run the mongodb container :
 
 `docker run --network=demo --name mongodb -d -p 27017:27017 -v ~/opt/data:/data/db mongo:latest`
 
-### Build the server
+### Build the server :
 
 ```sh
 cd mern/backend
 docker build -t mern-backend .
 ```
 
-### Run the server
+### Run the server :
 
 `docker run --name=backend --network=demo -d -p 5050:5050 mern-backend`
 
-## Using Docker Compose
+## Using Docker Compose :
 
 `docker compose up -d`
 
 <br>
 
-<h3 align="center"> 2) Packaging With Helm : </h3>
+<h3 align="center"> 2) Packaging With Helm :- </h3>
 
 <br>
 
-###  Create a Helm Chart ###
+###  Create a Helm Chart :
 
 ` Create a Helm Chart `
 
-### Edit Following Files Of Helm :- ###
+### Edit Following Files Of Helm :
 
 <br>
 
@@ -90,11 +90,11 @@ docker build -t mern-backend .
 
 <br>
 
-<h3 align="center"> 3) Scan the Helm Chart with Trivy & Kubelinter : </h3>
+<h3 align="center"> 3) Scan the Helm Chart with Trivy & Kubelinter :- </h3>
 
 <br>
 
-### Run Trivy to scan your Helm chart and save the output ###
+### Run Trivy to scan your Helm chart :
 ` trivy fs --severity HIGH,CRITICAL ./mern-app > trivy-report.txt `
 
 <br>
@@ -103,13 +103,15 @@ docker build -t mern-backend .
 
 <br>
 
-### Lint the Helm Chart with KubeLinter ###
+### Lint the Helm Chart with KubeLinter :
 
 helm lint ./mern-app > <a href="helmlinter-report.txt"> helmlinter-report.txt </a> <br>
 
 <br>
 
-<b> • Found Error At hemlinter.report.txt </b> <br>
+<b> • Found Error At hemlinter.report.txt </b> 
+
+<br>
 
 <b> Here Is The Soln : </b> <br>
 
@@ -120,27 +122,27 @@ Replace With " mern-app.fullname.tpl " At The Place Of " mern-app.fullname "in <
 
 <br>
 
-<h3 align="center"> 4) Set Up AKS (Azure Kubernetes Service) , Flux CD : </h3>
+<h3 align="center"> 4) Set Up AKS (Azure Kubernetes Service) & Flux CD :- </h3>
 
 <br> 
 
-<h3 align=center"> Set Up Your AKS Cluster :- </h3>
+<h3 align="center"> Set Up Your AKS Cluster :- </h3>
 
 <br>
 
-### Log in to your Azure account 
+### Log in to your Azure account :
 
 ` az login ` 
 
 <br>
 
-### Create a Resource Group
+### Create a Resource Group :
 
 ` az group create --name myResourceGroup --location eastus ` 
 
 <br>
 
-### Create an AKS Cluster
+### Create an AKS Cluster :
 
 ``` 
 az aks create \
@@ -153,29 +155,29 @@ az aks create \
 ``` 
 <br>
 
-### Get AKS Credentials
+### Get AKS Credentials :
 
 ` az aks get-credentials --resource-group myResourceGroup --name myAKSCluster `
 
 <br>
 
-### Verify AKS Cluster
+### Verify AKS Cluster :
 
 ` kubectl get nodes ` 
 
 <br>
 
-<h3 align="center"> Set Up Flux CD </h3>
+<h3 align="center"> Set Up Flux CD :- </h3>
 
 <br>
 
-### Install Flux CLI
+### Install Flux CLI :
 
 ` brew install fluxcd/tap/flux `
 
 <br>
 
-### 
+### Bootstrap Flux CD :
 
 ``` 
 
@@ -190,17 +192,17 @@ flux bootstrap github \
 ```
 <br>
 
-### Verify Installation
+### Verify Installation :
 
 ` kubectl get pods -n flux-system `
 
 <br>
 
-<h3 align="center"> 5) Deploy Your Helm Chart with Flux CD </h3> 
+<h3 align="center"> 5) Deploy Your Helm Chart with Flux CD :- </h3> 
 
 <br>
 
-### Structure ###
+### Structure :
 
 <br>
 
@@ -214,7 +216,7 @@ flux bootstrap github \
 ```
 <br>
 
-### Add & Push To GitHub Repo :- Following Files To clusters/my-cluster/flux-system ###
+### Add & Push To clusters/my-cluster/flux-system Repo :
 
 <br>
 
@@ -224,7 +226,7 @@ flux bootstrap github \
 
 <br>
 
-### Trigger Flux Reconciliation ###
+### Trigger Flux Reconciliation :
 
 <br>
 
@@ -232,23 +234,23 @@ flux bootstrap github \
 
 <br>
 
-### Verify The Deployment ###
+### Verify The Deployment :
 
 <br>
 
-<b> 1. Check Flux Kustomizations : </b> <br>
+<b> 1. Check Flux Kustomizations --- </b> <br>
 
 ` flux get kustomizations ` <br>
 
-<b> 2. Verify Heml Repository : </b> <br>
+<b> 2. Verify Heml Repository --- </b> <br>
 
 ` kubectl get helmrepositories -n flux-system ` <br>
 
-<b> 3. Verify Helm Release : </b> <br>
+<b> 3. Verify Helm Release --- </b> <br>
 
 ` flux get helmreleases -A ` <br>
 
-<b> 4. Verify Kyverno Policies : </b> <br>
+<b> 4. Verify Kyverno Policies --- </b> <br>
 
 ` kubectl get cpol ` <br>
 
@@ -258,11 +260,20 @@ flux bootstrap github \
 
 <br>
  
-<h3 align="center"> Integration Of Falco </h3> 
+<h3 align="center"> 6) Integration Of Falco :- </h3> 
 
 <br>
 
-### Structure : ###
+### Add Falco Helm Repository :
+
+<br>
+
+` helm repo add falcosecurity https://falcosecurity.github.io/charts ` <br>
+` helm repo update `
+
+<br>
+
+### Structure : 
 
 <br>
 
@@ -279,13 +290,58 @@ flux bootstrap github \
 
 <br>
 
-` NOTE ; Following Steps We Have To Apply On AKS Cluster `
+` NOTE : Following Steps We Have To Apply On AKS Cluster `
 
 <br>
 
+### Custom Configuration for Falco : 
 
+<br>
 
+<a href="falco/falco-values.yaml"> • falco-values.yaml </a> 
 
+<br>
 
+### Install Falco With Custom Values : 
 
+<br>
 
+` helm install falco falcosecurity/falco --namespace falco --create-namespace -f falco/falco-values.yaml `
+
+<br>
+
+### Create Audit Policy File : 
+
+<br>
+
+<a href="falco/audit-policy.yaml"> • audit-policy.yaml </a>
+
+<br>
+
+### Apply Audit Policy : 
+
+<br>
+
+` kubectl apply -f audit-policy.yaml `
+
+<br>
+
+### Create Custom Rules : 
+
+<br>
+
+<a href="falco/custom-rules.yaml"> • custom-rules.yaml </a> 
+
+<br>
+
+### Apply Custom Rules : 
+
+` kubectl apply -f falco/custom-rules.yaml ` 
+
+<br>
+
+### Monitor Falco Logs : 
+
+` kubectl logs -l app=falco -n falco `
+
+<br>

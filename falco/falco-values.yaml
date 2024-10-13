@@ -1,31 +1,36 @@
 ebpf:
-  enable: true
+  enable: true  # Enable eBPF for better performance on supported kernels
 
 falco:
-  json_output: true
+  json_output: true  # Output logs in JSON format for easier parsing
 
+# If using Kubernetes audit logs
 auditLog:
   enabled: true
-  auditLogPath: /var/log/kube-audit/audit.log
+  auditLogPath: /var/log/kube-audit/audit.log  # Path to the Kubernetes audit log
 
+# Enable and configure outputs
 program_output:
   enabled: true
   keepalive: false
-  program: "jq . | logger -t falco"
+  program: "jq . | logger -t falco"  # Example of sending logs to syslog
 
 file_output:
   enabled: true
   keepalive: false
-  filename: /var/log/falco_events.log
+  filename: /var/log/falco_events.log  # Log file for Falco events
 
 stdout_output:
-  enabled: true
+  enabled: true  # Output Falco logs to stdout
+
+http_output:
+  enabled: false  # Example of sending logs to an HTTP endpoint (disabled by default)
 
 syscall:
-  enabled: true
+  enabled: true  # Enable syscall monitoring
 
 k8s_audit:
-  enabled: true
+  enabled: true  # Enable Kubernetes audit log monitoring
 
 nodeSelector: {}
 tolerations: []
