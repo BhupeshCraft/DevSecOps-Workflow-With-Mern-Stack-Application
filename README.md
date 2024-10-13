@@ -122,7 +122,7 @@ Replace With " mern-app.fullname.tpl " At The Place Of " mern-app.fullname "in <
 
 <br> 
 
-<h4 align=center"> Set Up Your AKS Cluster </h4>
+<h3 align=center"> Set Up Your AKS Cluster :- </h3>
 
 <br>
 
@@ -138,18 +138,21 @@ Replace With " mern-app.fullname.tpl " At The Place Of " mern-app.fullname "in <
 
 <br>
 
-###Create an AKS Cluster
+### Create an AKS Cluster
 
-``` az aks create \
+``` 
+az aks create \
     --resource-group myResourceGroup \
     --name myAKSCluster \
     --node-count 3 \
     --enable-addons monitoring \
     --generate-ssh-keys
-    ``` 
-    <br>
+    
+``` 
+<br>
 
 ### Get AKS Credentials
+
 ` az aks get-credentials --resource-group myResourceGroup --name myAKSCluster `
 
 <br>
@@ -160,7 +163,7 @@ Replace With " mern-app.fullname.tpl " At The Place Of " mern-app.fullname "in <
 
 <br>
 
-<h4 align=center"> Install Flux CD </h4>
+<h3 align=center"> Install Flux CD </h3>
 
 <br>
 
@@ -172,13 +175,16 @@ Replace With " mern-app.fullname.tpl " At The Place Of " mern-app.fullname "in <
 
 ### 
 
-``` flux bootstrap github \
+``` 
+
+flux bootstrap github \
   --token-auth \
   --owner=BhupeshCraft \
   --repository=DevSecOps-Workflow-With-Mern-Stack-Application \
   --branch=main \
   --path=clusters/my-cluster \
   --personal
+
 ```
 <br>
 
@@ -187,3 +193,72 @@ Replace With " mern-app.fullname.tpl " At The Place Of " mern-app.fullname "in <
 ` kubectl get pods -n flux-system `
 
 <br>
+
+<h3 align="center"> 5) Deploy Your Helm Chart with Flux CD </h3> 
+
+<br>
+
+### Structure ###
+
+<br>
+
+```
+
+├── clusters/my-cluster/flux-system :
+                            ├── helm-repo.yaml
+                            ├── helm-release.yaml
+                            └── secure-policies.yaml
+
+```
+<br>
+
+### Add & Push To GitHub Repo :- Following Files To clusters/my-cluster/flux-system ###
+
+<br>
+
+<a href="clusters/my-cluster/flux-system/helm-repo.yaml"> • helm-repo.yaml </a> <br>
+<a href="clusters/my-cluster/flux-system/helm-release.yaml"> • helm-release.yaml </a> <br>
+<a href="clusters/my-cluster/flux-system/kyverno-policy.yaml"> • kyverno-policy.yaml </a> <br>
+
+<br>
+
+### Trigger Flux Reconciliation ###
+
+<br>
+
+` flux reconcile kustomization flux-system --with-source ` 
+
+<br>
+
+### Verify The Deployment ###
+
+<br>
+
+<b> 1. Check Flux Kustomizations : </b> <br>
+
+` flux get kustomizations ` <br>
+
+<b> 2. Verify Heml Repository : </b> <br>
+
+` kubectl get helmrepositories -n flux-system ` <br>
+
+<b> 3. Verify Helm Release : </b> <br>
+
+` flux get helmreleases -A ` <br>
+
+<b> 4. Verify Kyverno Policies : </b> <br>
+
+` kubectl get cpol ` <br>
+
+<b> 5. Check All Resources : </b> <br>
+
+` kubectl get all -n default ` <br>
+
+<br>
+ 
+
+
+
+
+
+
