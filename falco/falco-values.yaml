@@ -1,0 +1,32 @@
+ebpf:
+  enable: true
+
+falco:
+  json_output: true
+
+auditLog:
+  enabled: true
+  auditLogPath: /var/log/kube-audit/audit.log
+
+program_output:
+  enabled: true
+  keepalive: false
+  program: "jq . | logger -t falco"
+
+file_output:
+  enabled: true
+  keepalive: false
+  filename: /var/log/falco_events.log
+
+stdout_output:
+  enabled: true
+
+syscall:
+  enabled: true
+
+k8s_audit:
+  enabled: true
+
+nodeSelector: {}
+tolerations: []
+affinity: {}

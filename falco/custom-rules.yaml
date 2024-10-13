@@ -1,0 +1,5 @@
+- rule: Write Below Root
+  desc: Detect any write below the /root directory.
+  condition: write and fd.directory = /root and not proc.name in (syslog-ng, falco)
+  output: File below root directory opened for writing by process (%proc.cmdline) (user=%user.name %user.uid)
+  priority: WARNING

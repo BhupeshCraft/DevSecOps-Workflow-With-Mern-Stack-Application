@@ -88,6 +88,8 @@ docker build -t mern-backend .
 <a href="mern-app/templates/deployment.yaml">• templates/deployment.yaml</a> <br>
 <a href="mern-app/templates/service.yaml">• templates/service.yaml</a> <br>
 
+<br>
+
 <h3 align="center"> 3) Scan the Helm Chart with Trivy & Kubelinter : </h3>
 
 <br>
@@ -163,7 +165,7 @@ az aks create \
 
 <br>
 
-<h3 align=center"> Install Flux CD </h3>
+<h3 align="center"> Set Up Flux CD </h3>
 
 <br>
 
@@ -256,6 +258,31 @@ flux bootstrap github \
 
 <br>
  
+<h3 align="center"> Integration Of Falco </h3> 
+
+<br>
+
+### Structure : ###
+
+<br>
+
+```
+
+├── falco/
+│   ├── falco-values.yaml  # Custom configuration for Falco
+│   ├── custom-rules.yaml  # Custom Falco rules
+│
+├── audit-policy.yaml  # Kubernetes audit policy
+└── README.md
+
+```
+
+<br>
+
+` NOTE ; Following Steps We Have To Apply On AKS Cluster `
+
+<br>
+
 
 
 
