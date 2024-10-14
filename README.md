@@ -345,3 +345,107 @@ flux bootstrap github \
 ` kubectl logs -l app=falco -n falco `
 
 <br>
+
+<h2 align="center"> 7) Running A Project 😄 </h2> 
+
+<br>
+
+<h3 align="center"> Ensure Your Cluster and Tools Are Ready 👍 </h3> 
+
+<br>
+
+### Ensure AKS Cluster Is Running :
+
+<br>
+
+` kubectl get nodes `
+
+<br>
+
+### Ensure Flux CD Is Synchronizing :
+
+<br>
+
+` flux get kustomizations `
+
+<br>
+
+<h3 align="center"> Check Flux CD Synchronization 👍 </h3>
+
+<br>
+
+### Check HelmRepository :
+
+<br>
+
+` kubectl get helmrepositories -n flux-system `
+
+<br>
+
+### Check HelmRelease :
+
+<br>
+
+` flux get helmreleases -A `
+
+<br>
+
+<h3 align="center"> Verify Your Deployment 👍 </h3>
+
+<br>
+
+### Verify HelmRelease Deployment :
+
+<br>
+
+` kubectl get all -n default `
+
+<br>
+
+### Check Service Status :
+
+<br>
+
+` kubectl get svc -n default `
+
+<br>
+
+<h3 align="center"> Access Your Application 👍 </h3>
+
+<br>
+
+### Port Forwarding (Local Access) : 
+
+<br>
+
+` kubectl port-forward svc/frontend 8080:80 -n default `
+
+<br>
+
+### External Access (Load Balancer): 
+
+<br>
+
+` kubectl get svc -n default `
+
+<br>
+
+<h3 align="center"> Monitor and Manage 👍 </h3>
+
+<br>
+
+### Monitor Falco Logs :
+
+<br>
+
+` kubectl logs -l app=falco -n falco `
+
+<br>
+
+### Check Kyverno Policies :
+
+<br>
+
+` kubectl get cpol `
+
+<br>
