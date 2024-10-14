@@ -449,3 +449,31 @@ flux bootstrap github \
 ` kubectl get cpol `
 
 <br>
+
+<h2 align="center"> 8) Here Is A Output 🔥 </h2>
+
+<br>
+
+### Front-end :
+
+<br>
+
+<img src="1) Front-end.png" alt="front-end" width="700">
+
+<br>
+
+### Back-end :
+
+<br>
+
+<img src="2) Back-end.png" alt="back-end" width="700">
+
+<br>
+
+### Mongo DB :
+
+<br>
+
+<img src="3) MongoDB.png" alt="mongodb" width="700">
+
+<br>
