@@ -18,11 +18,11 @@
 
 <br>
 
-<h3 align="center"> Let's Begin ✌🏻 </h3>
+<h2 align="center"> Let's Begin ✌🏻 </h2>
 
 <br>
 
-<h3 align="center"> 1) Build & Compose Mern Application With Docker :- </h3>
+<h2 align="center"> 1) Build & Compose Mern Application With Docker :- </h2>
 
 <br>
 
@@ -31,53 +31,88 @@
 <a href="mern/frontend/Dockerfile">• frontend</a> <br>
 <a href="mern/backend/Dockerfile">• backend</a> <br>
 
-### Create a network for the docker containers 
+<br>
+
+### Create a network for the docker containers :
+
+<br>
 
 `docker network create demo`
 
+<br>
+
 ### Build the client :
+
+<br>
 
 ```sh
 cd mern/frontend
 docker build -t mern-frontend .
 ```
+<br>
 
 ### Run the client :
 
+<br>
+
 `docker run --name=frontend --network=demo -d -p 5173:5173 mern-frontend`
+
+<br>
 
 ### Verify the client is running :
 
+<br>
+
 Open your browser and type `http://localhost:5173`
+
+<br>
 
 ### Run the mongodb container :
 
+<br>
+
 `docker run --network=demo --name mongodb -d -p 27017:27017 -v ~/opt/data:/data/db mongo:latest`
 
+<br>
+
 ### Build the server :
+
+<br>
 
 ```sh
 cd mern/backend
 docker build -t mern-backend .
 ```
 
+<br>
+
 ### Run the server :
+
+<br>
 
 `docker run --name=backend --network=demo -d -p 5050:5050 mern-backend`
 
+<br>
+
 ## Using Docker Compose :
+
+<br>
 
 `docker compose up -d`
 
 <br>
 
-<h3 align="center"> 2) Packaging With Helm :- </h3>
+<h2 align="center"> 2) Packaging With Helm :- </h2>
 
 <br>
 
 ###  Create a Helm Chart :
 
+<br>
+
 ` Create a Helm Chart `
+
+<br>
 
 ### Edit Following Files Of Helm :
 
@@ -90,11 +125,14 @@ docker build -t mern-backend .
 
 <br>
 
-<h3 align="center"> 3) Scan the Helm Chart with Trivy & Kubelinter :- </h3>
+<h2 align="center"> 3) Scan the Helm Chart with Trivy & Kubelinter :- </h2>
 
 <br>
 
 ### Run Trivy to scan your Helm chart :
+
+<br>
+
 ` trivy fs --severity HIGH,CRITICAL ./mern-app > trivy-report.txt `
 
 <br>
@@ -105,6 +143,8 @@ docker build -t mern-backend .
 
 ### Lint the Helm Chart with KubeLinter :
 
+<br>
+
 helm lint ./mern-app > <a href="helmlinter-report.txt"> helmlinter-report.txt </a> <br>
 
 <br>
@@ -113,7 +153,9 @@ helm lint ./mern-app > <a href="helmlinter-report.txt"> helmlinter-report.txt </
 
 <br>
 
-<b> Here Is The Soln : </b> <br>
+<b> Here Is The Soln : </b> 
+
+<br>
 
 ```
 Create file " mern-app.fullname.tpl " --> Paste : {{ .Release.Name }}-{{ .Chart.Name }}
@@ -122,7 +164,7 @@ Replace With " mern-app.fullname.tpl " At The Place Of " mern-app.fullname "in <
 
 <br>
 
-<h3 align="center"> 4) Set Up AKS (Azure Kubernetes Service) & Flux CD :- </h3>
+<h2 align="center"> 4) Set Up AKS (Azure Kubernetes Service) & Flux CD :- </h2>
 
 <br> 
 
@@ -132,17 +174,23 @@ Replace With " mern-app.fullname.tpl " At The Place Of " mern-app.fullname "in <
 
 ### Log in to your Azure account :
 
+<br>
+
 ` az login ` 
 
 <br>
 
 ### Create a Resource Group :
 
+<br>
+
 ` az group create --name myResourceGroup --location eastus ` 
 
 <br>
 
 ### Create an AKS Cluster :
+
+<br>
 
 ``` 
 az aks create \
@@ -157,11 +205,15 @@ az aks create \
 
 ### Get AKS Credentials :
 
+<br>
+
 ` az aks get-credentials --resource-group myResourceGroup --name myAKSCluster `
 
 <br>
 
 ### Verify AKS Cluster :
+
+<br>
 
 ` kubectl get nodes ` 
 
@@ -173,11 +225,15 @@ az aks create \
 
 ### Install Flux CLI :
 
+<br>
+
 ` brew install fluxcd/tap/flux `
 
 <br>
 
 ### Bootstrap Flux CD :
+
+<br>
 
 ``` 
 
@@ -194,11 +250,13 @@ flux bootstrap github \
 
 ### Verify Installation :
 
+<br>
+
 ` kubectl get pods -n flux-system `
 
 <br>
 
-<h3 align="center"> 5) Deploy Your Helm Chart with Flux CD :- </h3> 
+<h2 align="center"> 5) Deploy Your Helm Chart & Kyverno Policy with Flux CD :- </h2> 
 
 <br>
 
@@ -240,27 +298,43 @@ flux bootstrap github \
 
 <b> 1. Check Flux Kustomizations --- </b> <br>
 
-` flux get kustomizations ` <br>
+<br>
 
-<b> 2. Verify Heml Repository --- </b> <br>
+` flux get kustomizations ` 
 
-` kubectl get helmrepositories -n flux-system ` <br>
-
-<b> 3. Verify Helm Release --- </b> <br>
-
-` flux get helmreleases -A ` <br>
-
-<b> 4. Verify Kyverno Policies --- </b> <br>
-
-` kubectl get cpol ` <br>
-
-<b> 5. Check All Resources : </b> <br>
-
-` kubectl get all -n default ` <br>
+<b> 2. Verify Heml Repository --- </b> 
 
 <br>
- 
-<h3 align="center"> 6) Integration Of Falco :- </h3> 
+
+` kubectl get helmrepositories -n flux-system ` 
+
+<br>
+
+<b> 3. Verify Helm Release --- </b> 
+
+<br>
+
+` flux get helmreleases -A ` 
+
+<br>
+
+<b> 4. Verify Kyverno Policies --- </b> 
+
+<br>
+
+` kubectl get cpol ` 
+
+<br>
+
+<b> 5. Check All Resources : </b> 
+
+<br>
+
+` kubectl get all -n default ` 
+
+<br>
+
+<h2 align="center"> 6) Integration Of Falco :- </h2> 
 
 <br>
 
@@ -268,7 +342,10 @@ flux bootstrap github \
 
 <br>
 
-` helm repo add falcosecurity https://falcosecurity.github.io/charts ` <br>
+` helm repo add falcosecurity https://falcosecurity.github.io/charts ` 
+
+<br>
+
 ` helm repo update `
 
 <br>
@@ -350,7 +427,7 @@ flux bootstrap github \
 
 <br>
 
-<h3 align="center"> Ensure Your Cluster and Tools Are Ready 👍 </h3> 
+<h3 align="center"> Ensure Your Cluster and Tools Are Ready 👍🏻 </h3> 
 
 <br>
 
@@ -370,7 +447,7 @@ flux bootstrap github \
 
 <br>
 
-<h3 align="center"> Check Flux CD Synchronization 👍 </h3>
+<h3 align="center"> Check Flux CD Synchronization 👍🏻 </h3>
 
 <br>
 
@@ -390,7 +467,7 @@ flux bootstrap github \
 
 <br>
 
-<h3 align="center"> Verify Your Deployment 👍 </h3>
+<h3 align="center"> Verify Your Deployment 👍🏻 </h3>
 
 <br>
 
@@ -410,7 +487,7 @@ flux bootstrap github \
 
 <br>
 
-<h3 align="center"> Access Your Application 👍 </h3>
+<h3 align="center"> Access Your Application 👍🏻 </h3>
 
 <br>
 
@@ -430,7 +507,7 @@ flux bootstrap github \
 
 <br>
 
-<h3 align="center"> Monitor and Manage 👍 </h3>
+<h3 align="center"> Monitor and Manage 👍🏻 </h3>
 
 <br>
 
@@ -450,30 +527,14 @@ flux bootstrap github \
 
 <br>
 
-<h2 align="center"> 8) Here Is A Output 🔥 </h2>
+<h2 align="center"> 8) Here Is An Output 🔥 </h2>
 
 <br>
 
-### Front-end :
+<img src="IMG.png" alt="IMG" width="800">
 
 <br>
 
-<img src="1) Front-end.png" alt="front-end" width="700">
-
-<br>
-
-### Back-end :
-
-<br>
-
-<img src="2) Back-end.png" alt="back-end" width="700">
-
-<br>
-
-### Mongo DB :
-
-<br>
-
-<img src="3) MongoDB.png" alt="mongodb" width="700">
+<h1 align="center"> Thank You !!! 🙏🏻 </h1> 
 
 <br>
